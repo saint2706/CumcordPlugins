@@ -1,0 +1,7 @@
+{
+  "name": "prnt sc roulette",
+  "description": "Plugin that posts screenshots from lightshot, use with !prnt <number> (Warning: Can be NSFW)",
+  "author": "S'aint",
+  "file": "src/index.js",
+  "license": "MIT"
+}
