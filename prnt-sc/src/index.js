@@ -10,33 +10,29 @@ const random = () =>
 export default {
 	onLoad ()
 	{
-		unpatch = cumcord.patcher.after(
-			"sendMessage",
-			webpackModules.findByProps( "sendMessage" ),
-			( args ) =>
+		unpatch = cumcord.patcher.after( "sendMessage", webpackModules.findByProps( "sendMessage" ), ( args ) =>
+		{
+			if ( args[ 1 ].content.startsWith( "!prnt" ) )
 			{
-				if ( args[ 1 ].content.startsWith( "!prnt" ) )
+				const nextTest = args[ 1 ].content.replace( "!prnt", "" ).replace( " ", "" )
+				const nextTestInt = parseInt( nextTest )
+				if ( nextTestInt <= 5 )
 				{
-					const nextTest = args[ 1 ].content.replace( "!prnt", "" ).replace( " ", "" )
-					const nextTestInt = parseInt( nextTest )
-					if ( nextTestInt <= 5 )
+					let message = ""
+					for ( let i = 0; i < nextTestInt; i++ )
 					{
-						console.log( "i have entered if statement" )
-						let message = ""
-						for ( let i = 0; i < nextTestInt; i++ )
-						{
-							const link = "https://prnt.sc/" + random()
-							message += link + "\n"
-						}
-						args[ 1 ].content = message
-					} else
-					{
-						const message = "https://prnt.sc/" + random()
-						args[ 1 ].content = message
+						const link = "https://prnt.sc/" + random()
+						message += link + "\n"
 					}
+					args[ 1 ].content = message
+				} else
+				{
+					const message = "https://prnt.sc/" + random()
+					args[ 1 ].content = message
 				}
-				return args
 			}
+			return args
+		}
 		)
 	},
 	onUnload ()
